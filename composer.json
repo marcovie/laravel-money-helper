@@ -1,6 +1,7 @@
 {
     "name": "marcovie/laravel-money-helper",
     "description": "Handles money in cents/pence and formats it for display",
+    "license": "MIT",
     "type": "library",
     "autoload": {
         "psr-4": {
