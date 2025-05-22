@@ -1,0 +1,36 @@
+{
+    "name": "marcovie/laravel-money-helper",
+    "description": "Handles money in cents/pence and formats it for display",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Marcovie\\LaravelMoneyHelper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Marcovie\\LaravelMoneyHelper\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Marcovie\\LaravelMoneyHelper\\MoneyHelperServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34",
+        "pestphp/pest-plugin-laravel": "^2.3",
+        "pestphp/pest-plugin-arch": "^2.7"
+    }
+}
