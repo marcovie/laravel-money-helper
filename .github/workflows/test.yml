@@ -1,0 +1,37 @@
+name: Run Money Helper Tests
+
+on:
+  push:
+    paths:
+      - "packages/marcovie/laravel-money-helper/**"
+  pull_request:
+    paths:
+      - "packages/marcovie/laravel-money-helper/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/marcovie/laravel-money-helper
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+          coverage: none
+
+      # ✅ This writes to composer.json or composer.local.json
+      - name: Allow Pest Plugin
+        run: composer config allow-plugins.pestphp/pest-plugin true
+
+      # ✅ Do NOT use --no-plugins
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run Pest
+        run: vendor/bin/pest

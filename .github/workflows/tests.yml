@@ -1,0 +1,40 @@
+name: Run Money Helper Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, intl, xml, zip, curl, bcmath, gd, pdo, sqlite, pdo_sqlite, igbinary, memcached, redis
+          ini-values: date.timezone=UTC
+          tools: composer:v2
+          coverage: none
+
+      # - name: Create Environment File
+      #   run: cp .env.example .env
+
+      # Optional: Allow Pest plugin if used
+      # - name: Allow Pest Plugin
+      #   run: composer config allow-plugins.pestphp/pest-plugin true
+
+      - name: Install dependencies (verbose)
+        run: composer install -vvv --prefer-dist --no-interaction -o
+
+      - name: Generate phpunit.xml if missing
+        run: |
+          if [ ! -f phpunit.xml ]; then
+            vendor/bin/pest --init
+          fi
+
+      - name: Run Pest Tests (verbose)
+        run: vendor/bin/pest --ci --debug
